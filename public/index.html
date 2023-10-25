@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimizador de salidas</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+    <link rel="manifest" href="./img/site.webmanifest">
+</head>
+<body class="container-fluid">
+    <header class="card">
+        <h1>Optimizador de salidas</h1>
+    </header>
+    <main>
+        <div>
+            <h2>Instrucciones</h2>
+            <p>Ingrese un presupuesto y la cantidad de comidas a considerar para su salida, 
+                junto con el <strong>precio monetario</strong> y la  <strong>preferencia personal</strong> suya o la de 
+                su grupo de amigos.
+            </p>
+            <p>
+                El sistema encontrará la mejor forma de cubrir el presuúesto dado en base a las opciones dadas y las mostrará en pantalla
+            </p>
+        </div>
+        
+        <form metod="POST">
+            <label for="presupuesto">Presupuesto</label><input type="number" placeholder="Presupuesto" name="presupuesto" id="presupuesto">
+            <input type="button" onclick="agregar_opcion()" value="Agregar opción"><input type="button" onclick="eliminar_opcion()" value="Eliminar opción">
+            <div id="contenedor_opciones">
+
+            </div>
+            <input type="button" value="Calcular" onclick="calcular()">
+        </form>
+        <div id="resultado">
+            <h2>Resultado de la operación</h2>
+            <ul id="opciones_resultantes">
+
+            </ul>
+        </div>
+    </main>
+    <script src="js/util.js"></script>
+</body>
+</html>

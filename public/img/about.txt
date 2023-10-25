@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Sarina
+- Font Author: Copyright (c) 2011, Sorkin Type Co (www.sorkintype.com eben@eyebytes.com) with Reserved Font Name "Sarina".
+- Font Source: http://fonts.gstatic.com/s/sarina/v23/-F6wfjF3ITQwasLhLkDUriBQxw.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
