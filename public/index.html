@@ -26,13 +26,16 @@
                 <li>
                     El sistema encontrará la mejor forma de cubrir el presuúesto dado en base a las opciones dadas y las mostrará en pantalla
                 </li>
+                <li>
+                    Ingresar valores incorrectos en el formulario (ej: costos que superan el presupuesto) puede generar una respuesta incorrecta o ninguna respuesta.
+                </li>
             </ul>
         </div>
         
         <form metod="POST">
             <div>
                 <label for="presupuesto" class="form-label">Presupuesto</label>
-                <input type="number" placeholder="Presupuesto" class="" name="presupuesto" id="presupuesto">
+                <input type="number" placeholder="Presupuesto" class="" name="presupuesto" id="presupuesto" oninput="validar_entero(this)" ondrag="validar_entero(this)" >
                 <input type="button" class="btn btn-primary" onclick="agregar_opcion()" value="Agregar opción">
                 <input type="button" class="btn btn-danger" onclick="eliminar_opcion()" value="Eliminar opción">
             </div>
@@ -41,13 +44,17 @@
             </ul>
             <input type="button" class="btn btn-success" value="Calcular" onclick="calcular()">
         </form>
-        <div id="resultado" class="my-1">
+        <div id="resultado" class="my-1"> <!--Aquí se imprimirá el resultado-->
             <h2>Los resultados de la operación se mostrarán aquí abajo</h2>
-            <ul id="opciones_resultantes" class="list-group ">
-
-            </ul>
+            <div class="row">
+                <ul id="opciones_resultantes" class="list-group col-4">
+                </ul>
+                <div class="col-8"></div>
+            </div>
         </div>
     </main>
+    <!-- Scripts del sistema-->
+    <script src="js/validacion.js"></script>
     <script src="js/util.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

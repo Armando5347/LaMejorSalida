@@ -25,11 +25,15 @@ function crear_label_input(contenedor_opciones, nombre_descriptivo, tipo_ingreso
     empaquetar_columna_automatica(label_elemento, contenedor_opciones);
 
     let elemento = document.createElement("input");
-    elemento.setAttribute("placeholder",nombre_descriptivo+" de la opción.");
+    elemento.setAttribute("placeholder",nombre_descriptivo+" de la opción "+numero_opcion);
     elemento.setAttribute("type",tipo_ingreso);
     elemento.setAttribute("id",nombre_descriptivo+"_opcion_"+numero_opcion);
     elemento.setAttribute("name",nombre_descriptivo+"_opcion_"+numero_opcion);
     elemento.setAttribute("class","form-control "+nombre_descriptivo+"_opcion");
+    if(tipo_ingreso == "number"){
+        elemento.setAttribute("oninput","validar_entero(this)");
+        elemento.setAttribute("ondrag","validar_entero(this)");
+    }
     empaquetar_columna_automatica(elemento, contenedor_opciones);
     
 }
@@ -49,10 +53,6 @@ function eliminar_opcion(){
 }
 
 function calcular(){
-    //vaciar los valores almacenados
-    let resultado = document.getElementById("opciones_resultantes");
-    resultado.innerHTML = "";
-
     //variables a usar (estaticas de momento, en la implementación se obtienen en base a lo ingresado por el usuario)
     let presupuesto = 0; //presupuesto a considerar
     let nombres = []; //el nombre de nuestras opciones
@@ -84,26 +84,44 @@ function calcular(){
         .map(() => Array(presupuesto + 1).fill(-1));
     
     //calculos
+    let presupuesto_gastado = 
     unboundedKnapsack(presupuesto, costos, preferencias, numero_elementos - 1, dp); //se obtiene el optimo
      //se hace el recorrido inverso
     buscar_elementos(presupuesto, costos, preferencias, numero_elementos - 1, dp, nombres, contador_opciones_resultantes);
     
     //imprimir resultados
+    //pero primero, se vacia lo que antes se tenía
+    limpiar_salida();
+    let resultado = document.getElementById("opciones_resultantes");
+
     for (indice = 0; indice < numero_elementos; indice++) {
         console.log(indice + " " + nombres[indice]+ " " + contador_opciones_resultantes[indice]);
         if(contador_opciones_resultantes[indice] > 0){ //si es mayor a cero, entonses es por que se requiere
             let ingreso = document.createElement("li");
-            ingreso.setAttribute("class","list-group-item list-group-item-info align-items-center p-1");
+            ingreso.setAttribute("class","list-group-item list-group-item-info align-items-center justify-content-between d-flex");
+            ingreso.appendChild(document.createTextNode(nombres[indice]));
             let display_numero = document.createElement("span");
-            display_numero.setAttribute("class","badge bg-primary rounded-pill");
+            display_numero.setAttribute("class","badge bg-primary ");
             display_numero.innerHTML = contador_opciones_resultantes[indice];
             ingreso.appendChild(display_numero);
-            ingreso.appendChild(document.createTextNode("  De " + nombres[indice]));
+
             resultado.appendChild(ingreso);
         }
     }
+    let btn_borrado = document.createElement("button");
+    btn_borrado.innerHTML= "Eliminar salida";
+    btn_borrado.setAttribute("class","list-group-item list-group-item-danger");
+    btn_borrado.setAttribute("onclick","limpiar_salida()");
+    resultado.appendChild(btn_borrado);
+    return;
 }
 	
+function limpiar_salida(){
+    //vaciar las opciones
+    document.getElementById("opciones_resultantes").innerHTML = "";
+    return;
+}
+
 // Busca obtener el maximo valor de "preferencia", cubirendo el presupuesto dado; aunque este a el usuario final no le interesa tanto
 function unboundedKnapsack(presupuesto, costos, preferencias, indice_elemento, dp) { 
     // Si nos encontramos en el ultimo elemento a considerar, cuando ya no ahy otros por evaluar
