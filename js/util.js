@@ -88,7 +88,7 @@ function calcular(){
     
     //calculos
     let presupuesto_gastado = 
-    unboundedKnapsack(presupuesto, costos, preferencias, numero_elementos - 1, dp); //se obtiene el optimo
+    mochila_sin_limite_objetos(presupuesto, costos, preferencias, numero_elementos - 1, dp); //se obtiene el optimo
      //se hace el recorrido inverso
     buscar_elementos(presupuesto, costos, preferencias, numero_elementos - 1, dp, nombres, contador_opciones_resultantes);
     
@@ -125,8 +125,11 @@ function limpiar_salida(){
     return;
 }
 
-// Busca obtener el maximo valor de "preferencia", cubirendo el presupuesto dado; aunque este a el usuario final no le interesa tanto
-function unboundedKnapsack(presupuesto, costos, preferencias, indice_elemento, dp) { 
+// Busca obtener el maximo valor de "preferencia", cubirendo el presupuesto dado; 
+//aunque este a el usuario final no le interesa tanto
+//y este biene siendo, un problema de la mochil
+//donde no hay litime en la cantidad de objetos que puedes meter
+function mochila_sin_limite_objetos(presupuesto, costos, preferencias, indice_elemento, dp) { 
     // Si nos encontramos en el ultimo elemento a considerar, cuando ya no ahy otros por evaluar
     if (indice_elemento == 0) {
       return Math.floor(presupuesto / costos[0]) * preferencias[0]; 
@@ -137,13 +140,13 @@ function unboundedKnapsack(presupuesto, costos, preferencias, indice_elemento, d
     // Si ninguna de las dos opciones anteriores sucede
     // Entonces se tiene que considerar si se pide un elemento o no se íde, y se continua con el que sigue
     // Si no se toma, entonces solo se reduce el indice dle elemento
-    let no_tomado = 0 + unboundedKnapsack(presupuesto, costos, preferencias, indice_elemento - 1, dp); 
+    let no_tomado = 0 + mochila_sin_limite_objetos(presupuesto, costos, preferencias, indice_elemento - 1, dp); 
 
     // Si se toma, se considera la preferencia del elemento y se le suma la solución con el presupuesto reducido
     let tomado = Number.MIN_VALUE; 
     if (costos[indice_elemento] <= presupuesto) { 
       tomado = preferencias[indice_elemento]
-       + unboundedKnapsack(presupuesto - costos[indice_elemento], costos, preferencias, indice_elemento, dp); 
+       + mochila_sin_limite_objetos(presupuesto - costos[indice_elemento], costos, preferencias, indice_elemento, dp); 
     }
 
     dp[indice_elemento][presupuesto] = Math.max(tomado, no_tomado); //comparación para ver cual es mayor
