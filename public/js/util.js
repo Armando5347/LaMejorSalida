@@ -33,6 +33,9 @@ function crear_label_input(contenedor_opciones, nombre_descriptivo, tipo_ingreso
     if(tipo_ingreso == "number"){
         elemento.setAttribute("oninput","validar_entero(this)");
         elemento.setAttribute("ondrag","validar_entero(this)");
+    }else{
+        elemento.setAttribute("oninput","validar_cadena(this)");
+        elemento.setAttribute("ondrag","validar_cadena(this)");
     }
     empaquetar_columna_automatica(elemento, contenedor_opciones);
     
