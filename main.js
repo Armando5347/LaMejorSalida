@@ -4,7 +4,7 @@ const app = express()
 const server = require('http').Server(app);  
 let puerto = 3000
 
-app.use(express.static('public'));
+app.use(express.static('docs'));
 app.set('port', process.env.PORT || puerto);
 app.get('/', (req, res) => {
   res.send('Prueba de fe!')
