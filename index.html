@@ -40,9 +40,10 @@
         <form metod="POST">
             <div>
                 <label for="presupuesto" class="form-label">Presupuesto</label>
-                <input type="number" placeholder="Presupuesto" class="" name="presupuesto" id="presupuesto" oninput="validar_entero(this)" ondrag="validar_entero(this)" >
+                <input type="number" placeholder="Presupuesto" class="" name="presupuesto" id="presupuesto" oninput="validar_entero(this)" ondrag="validar_entero(this)" required>
                 <input type="button" class="btn btn-primary" onclick="agregar_opcion()" value="Agregar opción">
                 <input type="button" class="btn btn-danger" onclick="eliminar_opcion()" value="Eliminar opción">
+                <input type="button" class="btn btn-danger" onclick="limpiar_opciones()" value="Limpiar opciones">
             </div>
             <ul id="contenedor_opciones" class="list-group">
 

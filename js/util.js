@@ -1,5 +1,6 @@
-let opciones = 0;
+let opciones = 0; //variable global que cuenta el total de opciones que se van a considerar
 
+// función que agrega en el documento html, una sería de inputs para ingresar la información necesaria de una opción
 function agregar_opcion() {
     opciones ++;
     let contenedor = document.getElementById("contenedor_opciones");
@@ -49,10 +50,17 @@ function empaquetar_columna_automatica(elemento_a_empaquetar, elemento_padre) {
     elemento_padre.appendChild(columna);
 }
 
+//Función que elimina los inpus relacionados a una opción ingresada
 function eliminar_opcion(){
     let eliminado = document.getElementById("opcion_"+opciones);
     eliminado.remove();
     opciones -- ;
+}
+
+//función que borra todos los inputs generados por el boton de crear opciones
+function limpiar_opciones(){
+    document.getElementById("contenedor_opciones").innerHTML = "";
+    opciones = 0;
 }
 
 function calcular(){
@@ -73,7 +81,7 @@ function calcular(){
     let lista_preferencias = document.getElementsByClassName("Preferencia_opcion");
     let lista_costos = document.getElementsByClassName("Precio_opcion");
     let indice = 0;
-    for (indice = 0; indice < lista_nombre.length; indice++) {
+    for (indice = 0; indice < opciones; indice++) {
         nombres.push(lista_nombre[indice].value);
         preferencias.push(parseInt(lista_preferencias[indice].value));
         costos.push(parseInt(lista_costos[indice].value));
