@@ -95,7 +95,6 @@ function calcular(){
         .map(() => Array(presupuesto + 1).fill(-1));
     
     //calculos
-    let presupuesto_gastado = 
     mochila_sin_limite_objetos(presupuesto, costos, preferencias, numero_elementos - 1, dp); //se obtiene el optimo
      //se hace el recorrido inverso
     buscar_elementos(presupuesto, costos, preferencias, numero_elementos - 1, dp, nombres, contador_opciones_resultantes);
@@ -104,9 +103,10 @@ function calcular(){
     //pero primero, se vacia lo que antes se tenía
     limpiar_salida();
     let resultado = document.getElementById("opciones_resultantes");
-
+    let presupuesto_gastado = 0;
     for (indice = 0; indice < numero_elementos; indice++) {
         console.log(indice + " " + nombres[indice]+ " " + contador_opciones_resultantes[indice]);
+        presupuesto_gastado += contador_opciones_resultantes[indice]*costos[indice]; //se obtiene el total gastado
         if(contador_opciones_resultantes[indice] > 0){ //si es mayor a cero, entonses es por que se requiere
             let ingreso = document.createElement("li");
             ingreso.setAttribute("class","list-group-item list-group-item-info align-items-center justify-content-between d-flex");
@@ -115,10 +115,17 @@ function calcular(){
             display_numero.setAttribute("class","badge bg-primary ");
             display_numero.innerHTML = contador_opciones_resultantes[indice];
             ingreso.appendChild(display_numero);
-
             resultado.appendChild(ingreso);
         }
     }
+    let informacion_presupuesto = document.createElement("li");
+    informacion_presupuesto.setAttribute("class","list-group-item list-group-item-secondary align-items-center justify-content-between d-flex");
+    informacion_presupuesto.appendChild(document.createTextNode("Total gastado."));
+    let display_gasto = document.createElement("span");
+    display_gasto.setAttribute("class","badge bg-primary ");
+    display_gasto.innerHTML = presupuesto_gastado; //imprime el total gastado
+    informacion_presupuesto.appendChild(display_gasto);
+    resultado.appendChild(informacion_presupuesto);
     let btn_borrado = document.createElement("button");
     btn_borrado.innerHTML= "Eliminar salida";
     btn_borrado.setAttribute("class","list-group-item list-group-item-danger");
